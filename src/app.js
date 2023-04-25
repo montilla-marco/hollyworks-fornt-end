@@ -5,18 +5,32 @@ import './app.css';
 const App = () => {
   const [yearOf, setYearOf] = useState(2023);
   const [numberOf, setNumberOf] = useState(15);
-  const [message, setMessage] = useState('');
+  const [showResult, setShowResult] = useState(false);
+  const [results, setResults] = useState([]);
+  const [reset, setReset] = useState(false);
+
+  const buildResult = (hollyworks) => setResults(hollyworks.map((number) => <li>{number}</li>));
 
   const getHollyWorks = () => {
     const baseURL = `http://localhost:9000/api/v1/hollyworks?yearOf=${yearOf}&numberOf=${numberOf}`;
     axios.get(baseURL).then((response) => {
-      setMessage(response.data);
+      buildResult(response.data);
+      setShowResult(!showResult);
     });
   };
 
+  const cleanResult = () => {
+    setShowResult(!showResult);
+  };
+
   const handleSubmit = (event) => {
+    setReset(!reset);
     event.preventDefault();
-    getHollyWorks();
+    if (!event.target.value) {
+      getHollyWorks();
+    } else {
+      cleanResult();
+    }
   };
 
   return (
@@ -40,10 +54,12 @@ const App = () => {
             onChange={(e) => setNumberOf(e.target.value)}
           />
         </label>
-        <input type="submit" value="Consultar" />
-        <p>
-          {message}
-        </p>
+        <input type="submit" value={reset ? 'Limpiar' : 'Consultar'} />
+        <div className="result-container" style={{ display: showResult ? 'block' : 'none' }}>
+          <ul className="result">
+            {results}
+          </ul>
+        </div>
       </form>
     </section>
   );
