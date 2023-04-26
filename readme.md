@@ -1,6 +1,6 @@
-☕️ Días laborales en un año (Solucion Desafio)
+# ☕️ Días laborales en un año (Solucion Desafio)
 
-## Instalacion
+## Instalacion en ambiente local
 
 Instalacion de dependencias
 
@@ -18,8 +18,8 @@ $ npm run start
 ## Usando Docker
 
 ### Requerimientos
-⋅⋅* Docker
-⋅⋅* Colima (mac OS)
+⋅⋅ Docker
+⋅⋅ Colima (mac OS)
 
 **Nota**: Si ya tiene Docker instalado por favor saltar la seccion de instalacion
 
